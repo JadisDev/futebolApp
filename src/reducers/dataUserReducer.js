@@ -1,7 +1,7 @@
 import { DATA_USER } from '../actions/actionsTypes';
 
 const initialState = {
-    newValue: ''
+    user: ''
 };
 
 export const dataUserReducer = (state = initialState, action) => {
@@ -9,7 +9,7 @@ export const dataUserReducer = (state = initialState, action) => {
         case DATA_USER:
           return {
             ...state,
-            newValue: action.newValue
+            user: action.user
           };
         default:
           return state;

@@ -125,7 +125,7 @@ class Login extends Component {
 }
 
 const mapStateToProps = store => ({
-    newValue: store.dataUserState.newValue
+    user: store.dataUserState.user
 });
 
 const mapDispatchToProps = dispatch =>
