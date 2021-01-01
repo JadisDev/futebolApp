@@ -1,49 +1,55 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Alert, Image } from 'react-native';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 import Welcome from './Welcome'
 import styles from '../styles/index'
 import { TextInput } from 'react-native-gesture-handler';
 import axios from 'axios';
 import consts from '../const';
+import AlertMessage from '../utils/AlertMessage';
+import { bindActionCreators } from 'redux';
+import { dataUser } from '../actions';
+import { connect } from 'react-redux';
 
 class Login extends Component {
 
     state = {
         login: 'jsj',
         password: '112233',
-        name_group: 'EBD'
+        name_group: 'EBD',
     }
+
     consumeApiLogin = () => {
-
         axios.post(`${consts.API_URL}/sessions`, this.state)
-        .then(resp => {
-            console.log(resp.data.user.name);
-            console.log(resp.data.group.name_group);
-            console.log(resp.data.user.admin);
-            console.log(resp.data.token);
-        })
-        .catch(e => {
-            console.log(e.message);
-        });
-
+            .then(result => {
+                const { dataUser } = this.props;
+                dataUser(this.state);
+                // console.log(resp.data.user.name);
+                // console.log(resp.data.group.name_group);
+                // console.log(resp.data.user.admin);
+                // console.log(resp.data.token);
+                this.props.navigation.navigate("Home");
+            })
+            .catch((error) => {
+                AlertMessage.alert(error.response.data.error);
+            });
     }
 
     login = () => {
-        const {login, password, name_group} = this.state;
+        const { login, password, name_group } = this.state;
         if (login === '') {
-            Alert.alert('Informe o login para continuar');
+            AlertMessage.alert('Informe o login para continuar');
             return;
         }
         if (login.length < 3) {
-            Alert.alert('O login deve mais de 2 caracteres');
+            AlertMessage.alert('O login deve mais de 2 caracteres');
             return;
         }
         if (password === '') {
-            Alert.alert('Informe sua senha');
+            AlertMessage.alert('Informe sua senha');
             return;
         }
         if (name_group === '') {
-            Alert.alert('Informe grupo para entrar');
+            AlertMessage.alert('Informe grupo para entrar');
             return;
         }
         if (name_group.length < 3) {
@@ -65,7 +71,7 @@ class Login extends Component {
 
                 <Welcome
                     text={styles.text}
-                    title="Bem vindo(a)"
+                    title='Bem vindo(a)'
                 ></Welcome>
 
                 <Image
@@ -117,4 +123,11 @@ class Login extends Component {
     }
 }
 
-export default Login;
+const mapStateToProps = store => ({
+    newValue: store.dataUserState.newValue
+});
+
+const mapDispatchToProps = dispatch =>
+    bindActionCreators({dataUser}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
