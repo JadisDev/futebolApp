@@ -22,11 +22,12 @@ class Login extends Component {
         axios.post(`${consts.API_URL}/sessions`, this.state)
             .then(result => {
                 const { dataUser } = this.props;
-                dataUser(this.state);
-                // console.log(resp.data.user.name);
-                // console.log(resp.data.group.name_group);
-                // console.log(resp.data.user.admin);
-                // console.log(resp.data.token);
+                dataUser({
+                    name: result.data.user.name,
+                    name_group: result.data.group.name_group,
+                    admin: result.data.user.admin,
+                    token: result.data.token
+                });
                 this.props.navigation.navigate("Home");
             })
             .catch((error) => {
