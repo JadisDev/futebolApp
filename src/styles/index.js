@@ -37,7 +37,23 @@ const styles = StyleSheet.create({
         width: 150,
         height: 150,
         borderRadius: 100,
-    }
+    },
+    welcome: {
+        fontSize: 20,
+        textAlign: 'center',
+        margin: 10,
+    },
+    instructions: {
+        textAlign: 'center',
+        color: '#fff',
+        marginBottom: 5,
+    },
+    containerBar: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#F5FCFF',
+    },
 });
 
 export default styles;

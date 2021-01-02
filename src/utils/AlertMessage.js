@@ -2,8 +2,8 @@ import { Alert } from 'react-native';
 
 class AlertMessage {
 
-    alert(error) {
-        Alert.alert('Futebol', error);
+    alert(message) {
+        Alert.alert('Futebol', message);
     }
 
 }
