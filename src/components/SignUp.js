@@ -1,18 +1,85 @@
 import React, { Component } from 'react';
 import { Text, View, TextInput, TouchableOpacity } from 'react-native';
-import styles from '../styles/index'
+import styles from '../styles/index';
+import AlertMessage from '../utils/AlertMessage';
+import axios from 'axios';
+import consts from '../const';
 
 class SignUp extends Component {
 
     state = {
-        name: "Zoe açoka",
-        login: "zoe",
+        name: "Jadis da Silva Jale",
+        login: "jsj",
         password: "112233",
         active: true,
-        name_group: "ZOE",
+        name_group: "EBD",
         admin: true,
-        name_season: "Temporada ZOE 2021.1"
+        name_season: "Temporada 2021.1"
     }
+
+    consumeApiSignUp() {
+        axios.post(`${consts.API_URL}/users`, this.state)
+            .then(result => {
+                console.log(result);
+                this.props.navigation.navigate("Login");
+            })
+            .catch((error) => {
+                // AlertMessage.alert(error.response.data.error);
+                console.log(error.response.data.error);
+            });
+    }
+
+    validSignUp() {
+        const { name, login, password, name_group, name_season } = this.state;
+
+        if (name === '') {
+            AlertMessage.alert('Informe seu nome para continuar');
+            return;
+        }
+
+        if (name.length < 3) {
+            AlertMessage.alert('O nome deve mais de 2 caracteres');
+            return;
+        }
+
+        if (login === '') {
+            AlertMessage.alert('Informe o login para continuar');
+            return;
+        }
+
+        if (login.length < 3) {
+            AlertMessage.alert('O login deve mais de 2 caracteres');
+            return;
+        }
+
+        if (password === '') {
+            AlertMessage.alert('Informe sua senha');
+            return;
+        }
+
+        if (name_group === '') {
+            AlertMessage.alert('Informe grupo para entrar');
+            return;
+        }
+
+        if (name_group.length < 3) {
+            Alert.alert('O grupo deve mais de 2 caracteres');
+            return;
+        }
+
+        if (name_season === '') {
+            AlertMessage.alert('Informe temporada para entrar');
+            return;
+        }
+
+        if (name_season.length < 3) {
+            Alert.alert('A temporada deve mais de 2 caracteres');
+            return;
+        }
+
+        this.consumeApiSignUp();
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -22,7 +89,7 @@ class SignUp extends Component {
                     criar temporadas a qualquer momento.
                 </Text>
 
-                <Text style={[styles.text, {paddingTop:10, paddingBottom: 10}]}>
+                <Text style={[styles.text, { paddingTop: 10, paddingBottom: 10 }]}>
                     Saiba quem são os artilheiros, os vencedores e outros ranks.
                     A qualquer momento em qualquer lugar em qualquer temporada.
                 </Text>
@@ -36,10 +103,17 @@ class SignUp extends Component {
 
                 <TextInput
                     style={styles.input}
-                    secureTextEntry={true}
                     placeholder="Qual seu login? (manuel_jale)"
                     onChangeText={(value) => this.setState({ login: value })}
                     value={this.state.login}
+                />
+
+                <TextInput
+                    style={styles.input}
+                    placeholder="Informe sua senha"
+                    secureTextEntry={true}
+                    onChangeText={(value) => this.setState({ password: value })}
+                    value={this.state.password}
                 />
 
                 <TextInput
@@ -58,7 +132,7 @@ class SignUp extends Component {
 
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={() => { }}
+                    onPress={() => { this.validSignUp() }}
                 >
                     <Text style={styles.buttonText}> Cadastre-se | Bem vindo (a) </Text>
                 </TouchableOpacity>
