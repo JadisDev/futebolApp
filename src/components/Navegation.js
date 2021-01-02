@@ -1,28 +1,36 @@
-import React, { Component } from 'react';
-import { View, Button } from 'react-native';
+import React from 'react';
 import { Provider } from 'react-redux';
 import { Store } from '../store'
+import styles from '../styles';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import Login from './Login';
 import Home from './Home';
 import SignUp from './SignUp';
-import MenuConfig from './MenuConfig';
 
 const Stack = createStackNavigator();
-const Drawer = createDrawerNavigator();
 
 const Navigation = () => {
+
+  const bar = styles.customBar;
+
   return (
     <Provider store={Store}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Login">
+        <Stack.Navigator initialRouteName="Login" screenOptions={{
+          headerStyle: {
+            backgroundColor: '#FFD700',
+          },
+          headerTintColor: '#008000',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}>
           <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="SignUp" component={SignUp} />
-          <Stack.Screen name="Home" component={Home} options={{headerShown: false}} />
+          <Stack.Screen name="SignUp" component={SignUp} options={{ title: 'Cadastre-se' }} />
+          <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

@@ -30,9 +30,9 @@ class Home extends Component {
                 content={<SideBar navigator={this.navigator} />}
                 onClose={() => this.closeDrawer()}>
                 <Container>
-                    <Header style={{backgroundColor: styles.container.backgroundColor, marginTop: 3}}>
-                        <Container style={{ flexDirection: 'row', backgroundColor: styles.container.backgroundColor }}>
-                            <Icon onPress={() => this.openDrawer()} name="bars" size={30} color="#fff" />
+                    <Header style={{backgroundColor: styles.button.backgroundColor, paddingTop: 10}}>
+                        <Container style={{ flexDirection: 'row', backgroundColor: styles.button.backgroundColor }}>
+                            <Icon onPress={() => this.openDrawer()} name="bars" size={30} color={styles.buttonText.color} />
                         </Container>
                     </Header>
 

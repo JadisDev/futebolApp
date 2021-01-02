@@ -17,7 +17,8 @@ const styles = StyleSheet.create({
         width: '80%'
     },
     text: {
-        color: '#fff'
+        color: '#fff',
+        width: '80%'
     },
     button: {
         width: '80%',
