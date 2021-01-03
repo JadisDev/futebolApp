@@ -24,8 +24,7 @@ class SignUp extends Component {
                 this.props.navigation.navigate("Login");
             })
             .catch((error) => {
-                // AlertMessage.alert(error.response.data.error);
-                console.log(error.response.data.error);
+                AlertMessage.alert(error.response.data.validation.error);
             });
     }
 
